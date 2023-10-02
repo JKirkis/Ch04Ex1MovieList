@@ -18,5 +18,11 @@ namespace Ch04Ex1MovieList.Models
         [Required(ErrorMessage = "Please enter a rating.")]
         [Range(1, 5, ErrorMessage = "Rating must be ebtween 1 and 5.")]
         public int? Rating { get; set; }
+
+        /* MovieId, Name, Year, and Rating properties same as before */
+
+        [Required(ErrorMessage = "Please enter a genre.")]
+        public string GenreId { get; set; }
+        public Genre Genre { get; set; }
     }
 }
