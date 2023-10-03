@@ -15,6 +15,7 @@ namespace Ch04Ex1MovieList.Controllers
         public IActionResult Add()
         {
             ViewBag.Action = "Add";
+            ViewBag.Genres = context.Genres.OrderBy(g => g.Name).ToList();
             return View("Edit", new Movie());
         }
 
@@ -22,7 +23,9 @@ namespace Ch04Ex1MovieList.Controllers
         public IActionResult Edit(int id)
         {
             ViewBag.Action = "Edit";
-            return View("Edit", new Movie());
+            ViewBag.Genres = context.Genres.OrderBy(g => g.Name).ToList();
+            var movie = context.Movies.Find(id);
+            return View(movie);
         }
 
         [HttpPost]
@@ -37,7 +40,8 @@ namespace Ch04Ex1MovieList.Controllers
                 context.SaveChanges();
                 return RedirectToAction("Index", "Home");
             } else {
-                ViewBag.Actino = (movie.MovieId == 0) ? "Add" : "Edit";
+                ViewBag.Action = (movie.MovieId == 0) ? "Add" : "Edit";
+                ViewBag.Genres = context.Genres.OrderBy(g => g.Name).ToList();
                 return View(movie);
             }
         }
